@@ -213,7 +213,7 @@ description = "Alternative to admin utilities for more autonomy, targeted toward
 name = "permissions-system"
 optional = false
 python-versions = "*"
-version = "0.1.0"
+version = "0.1.1"
 
 [package.dependencies]
 asyncpg = "0.20.1"
@@ -438,7 +438,7 @@ python-versions = ">=3.6.1"
 version = "8.1"
 
 [metadata]
-content-hash = "5788057c87d492bd7b697c49d49174aff03670ab32eb7511ecd888740e03690d"
+content-hash = "8ed6b71de04e30bd7f07c12d47a18fc2d5d4d69115635f04ea5a92523b19e89c"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -569,8 +569,8 @@ passlib = [
     {file = "passlib-1.7.2.tar.gz", hash = "sha256:8d666cef936198bc2ab47ee9b0410c94adf2ba798e5a84bf220be079ae7ab6a8"},
 ]
 permissions-system = [
-    {file = "permissions-system-0.1.0.tar.gz", hash = "sha256:f3cad3ae26d705e1b325a093e865585242644cef7908df7b20c561f057ed7b14"},
-    {file = "permissions_system-0.1.0-py3-none-any.whl", hash = "sha256:9b0bf0846dce790cc17ea3c7c7d4f0fb04b1ce5e0c0f8bf725c20156824d1598"},
+    {file = "permissions-system-0.1.1.tar.gz", hash = "sha256:af130505b0ff5d716dd26a9db3f4b77ba26cf874a2bde8737572b302c45ae7cf"},
+    {file = "permissions_system-0.1.1-py3-none-any.whl", hash = "sha256:5f038b802c4a8931778c2ea486dded45c571d5770c37af6e36d62199892db2d7"},
 ]
 pluggy = [
     {file = "pluggy-0.13.1-py2.py3-none-any.whl", hash = "sha256:966c145cd83c96502c3c3868f50408687b38434af77734af1e9ca461a4081d2d"},

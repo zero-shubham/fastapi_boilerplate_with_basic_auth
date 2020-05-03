@@ -10,7 +10,7 @@ httptools==0.1.1; sys_platform != "win32" and sys_platform != "cygwin" and platf
 mako==1.1.2
 markupsafe==1.1.1
 passlib==1.7.2
-permissions-system==0.1.0
+permissions-system==0.1.1
 psycopg2-binary==2.8.5
 pycodestyle==2.5.0
 pydantic==1.5.1
