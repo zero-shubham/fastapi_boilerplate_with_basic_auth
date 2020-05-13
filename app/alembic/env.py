@@ -9,7 +9,7 @@ from sqlalchemy import pool
 from alembic import context
 from models.User import User
 from models.Token import Token
-from application import metadata
+from application import metadata, ps
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
