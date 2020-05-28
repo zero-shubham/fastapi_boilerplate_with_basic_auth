@@ -4,6 +4,7 @@ from api.api_v1.endpoints import login
 from api.api_v1.endpoints import group
 from api.api_v1.endpoints import permission
 from api.api_v1.endpoints import customer
+from api.api_v1.endpoints import resource
 
 
 api_router = APIRouter()
@@ -31,4 +32,9 @@ api_router.include_router(
     customer.router,
     prefix="/customers",
     tags=["customers"]
+)
+api_router.include_router(
+    resource.router,
+    prefix="/resources",
+    tags=["resources"]
 )
