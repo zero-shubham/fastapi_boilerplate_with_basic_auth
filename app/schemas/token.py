@@ -10,7 +10,7 @@ class Token(BaseModel):
 
 class TokenPayload(BaseModel):
     user_id: str
-    user_group: str
+    group: str
 
 
 class LoginResponse(BaseModel):

@@ -4,7 +4,6 @@ from email_validator import validate_email
 from utils.app_event_funcs import startup, shutdown
 from crud.user import create_new_user
 from schemas.user import UserInDB
-from models.User import UserTypeEnum
 
 
 async def create_super_user():
@@ -18,8 +17,8 @@ async def create_super_user():
     print("Enter SuperAdmin password: ")
     password = input()
     creation_success = await create_new_user(obj_in=UserInDB(**{
-        "email": email,
-        "user_type": UserTypeEnum.admin,
+        "user_name": email,
+        "group": "super_admin",
         "password": password
     }))
 

@@ -7,7 +7,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from models.User import User
+from models.Customer import Customer
 from models.Token import Token
 from application import metadata, ps
 # this is the Alembic Config object, which provides

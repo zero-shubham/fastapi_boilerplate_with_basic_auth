@@ -6,7 +6,7 @@ import os
 from permissions_system.PermissionsSystemDatabases import PermissionsS
 
 load_dotenv(verbose=True)
-app = FastAPI(title="React-Admin Backend")
+app = FastAPI(title="FastAPI Admin Setup")
 
 DB_URI = os.environ["DB_URI"]
 

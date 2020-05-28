@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
-from crud.user import find_user_by_email
+from crud.user import find_user_by_username
 from core.jwt import create_access_token
 from schemas.token import (
     LoginResponse,
@@ -27,12 +27,12 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
         "access_token": "",
         "token_type": ""
     }
-    user = await find_user_by_email(form_data.username)
+    user = await find_user_by_username(form_data.username)
     if not user:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
     encoded_jwt, expire = create_access_token(data=TokenPayload(
-        user_id=str(user.get("id")), user_group=user.get("group")).dict())
+        user_id=str(user.get("id")), group=user.get("group")).dict())
     added_token_in_db = await add_token_in_db(
         user_id=user.get("id"),
         token=encoded_jwt.decode("utf-8")

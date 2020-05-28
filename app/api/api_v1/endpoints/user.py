@@ -9,21 +9,28 @@ from schemas.user import (
     UserInResp,
     UserInDB,
     UserInDbUpdate,
-    UserDeleteResp
+    UsersInResp
 )
 from crud.user import (
     find_user_by_id,
     create_new_user,
     get_all_users,
     update_user_in_db,
-    delete_user_in_db
+    delete_user_in_db,
+    get_all_users_count
 )
 from utils.dependencies import (
     get_current_user
 )
 from uuid import UUID
 from application import ps
-from permissions_system.constants import InternalTables, PermissionTypesEnum
+from permissions_system.constants import (
+    InternalTables,
+    PermissionTypesEnum
+)
+from schemas.common import (
+    DeleteResp
+)
 
 router = APIRouter()
 
@@ -45,13 +52,20 @@ async def get_user_by_id(
     return UserInResp(**user)
 
 
-@router.get("/", response_model=List[UserInResp])
-async def get_users(current_user=Depends(get_current_user)):
+@router.get("/", response_model=UsersInResp)
+async def get_users(
+    offset: int = 0,
+    limit: int = 10,
+    current_user=Depends(get_current_user)
+):
     """
-    Get list of all users.
+    Get list of all users and
+    total count of items for this resource in DB.
     """
-    users = await get_all_users()
-    return users
+    users = await get_all_users(offset, limit)
+    count = await get_all_users_count()
+
+    return UsersInResp(users=users, total_count=count)
 
 
 @router.post("/", response_model=UserInResp)
@@ -66,7 +80,7 @@ async def create_user(user_in: UserInDB, current_user=Depends(get_current_user))
 
 @router.put("/{user_id}", response_model=UserInResp)
 async def update_user(
-        user_id: int,
+        user_id: UUID,
         user_in: UserInDbUpdate,
         current_user=Depends(get_current_user)):
     """
@@ -76,9 +90,9 @@ async def update_user(
     return user
 
 
-@router.delete("/{user_id}", response_model=UserDeleteResp)
+@router.delete("/{user_id}", response_model=DeleteResp)
 async def delete_user(
-    user_id: int,
+    user_id: UUID,
     current_user=Depends(get_current_user)
 ):
     """
@@ -87,8 +101,8 @@ async def delete_user(
     resp = {
         "deleted": None
     }
-    if current_user.id != user_id and \
-            current_user.user_type != "super_admin":
+    if current_user["id"] != user_id and \
+            current_user["group"] != "super_admin":
         raise HTTPException(status.HTTP_403_FORBIDDEN,
                             "You are not authorised for this operation.")
 

@@ -10,9 +10,9 @@ async def create_new_user(obj_in: UserInDB) -> UUID:
     user_id = uuid4()
     created_user_id = await ps.create_user(
         user_id=user_id,
-        user_name=obj_in.email,
+        user_name=obj_in.user_name,
         password=hashed_pass,
-        user_group=obj_in.user_group
+        user_group=obj_in.group
     )
     return created_user_id
 
@@ -20,19 +20,27 @@ async def create_new_user(obj_in: UserInDB) -> UUID:
 async def find_user_by_id(user_id: UUID) -> UserInResp:
     query = ps.User.select().where(ps.User.columns.id == user_id)
     user = await database.fetch_one(query)
-    return dict(user.items())
+    if user:
+        return dict(user.items())
 
 
-async def find_user_by_email(email: str) -> UserInResp:
+async def find_user_by_username(email: str) -> UserInResp:
     query = ps.User.select().where(ps.User.columns.user_name == email)
     user = await database.fetch_one(query)
-    return dict(user.items())
+    if user:
+        return dict(user.items())
 
 
-async def get_all_users() -> List[UserInResp]:
-    query = ps.User.select()
+async def get_all_users(offset: int = 0, limit: int = 10) -> List[UserInResp]:
+    query = ps.User.select().offset(offset).limit(limit)
     users = await database.fetch_all(query)
     return users
+
+
+async def get_all_users_count() -> int:
+    query = ps.User.count()
+    count = await database.execute(query)
+    return count
 
 
 async def update_user_in_db(user_id: UUID, obj_in: UserInDB) -> UserInResp:
@@ -43,7 +51,7 @@ async def update_user_in_db(user_id: UUID, obj_in: UserInDB) -> UserInResp:
     return dict(updated_user.items())
 
 
-async def delete_user_in_db(user_id: UUID) -> UserInResp:
+async def delete_user_in_db(user_id: UUID) -> bool:
     query = ps.User.delete().where(
         ps.User.columns.id == user_id
     )

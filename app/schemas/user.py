@@ -1,5 +1,5 @@
 from pydantic import BaseModel, validator
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 
 
@@ -27,5 +27,6 @@ class UserInDbUpdate(BaseModel):
             return v
 
 
-class UserDeleteResp(BaseModel):
-    deleted: bool
+class UsersInResp(BaseModel):
+    users: List[UserInResp]
+    total_count: int

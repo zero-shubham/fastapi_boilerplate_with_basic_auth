@@ -1,0 +1,1 @@
+FastAPI boilerplate with basic auth and admin dashboard setup, this setup uses [PermissionsSystem](https://pypi.org/project/permissions-system/).
