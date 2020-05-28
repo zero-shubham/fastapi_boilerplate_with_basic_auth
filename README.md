@@ -1,1 +1,2 @@
 FastAPI boilerplate with basic auth and admin dashboard setup, this setup uses [PermissionsSystem](https://pypi.org/project/permissions-system/).
+Frontend(admin-dashboard) for this setup can be found [here](https://github.com/zero-shubham/react-admin-tinker), built using React-Admin.
